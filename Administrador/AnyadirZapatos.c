@@ -10,36 +10,32 @@ struct Zapato {
 
 int main() {
     struct Zapato zapato;
-    printf("Introduzca el nombre del zapato: ");
-    scanf("%s", zapato.nombre);
+
+    printf("Introduzca la talla del zapato: "); // obtener talla, color,nombre, precio
+    scanf("%d", &zapato.talla);
 
     printf("Introduzca el color del zapato: ");
     scanf("%s", zapato.color);
 
-    printf("Introduzca la talla del zapato: ");
-    scanf("%d", &zapato.talla);
+    printf("Introduzca el nombre del zapato: ");
+    scanf("%s", zapato.nombre);
 
     printf("Introduzca el precio del zapato: ");
     scanf("%f", &zapato.precio);
 
-    FILE *fp;
+    FILE *fptr;
 
-    fp = fopen("zapatos.txt", "a");// modo de escritura en texto
-    if (fp == NULL) {
-        printf("Ha habido un error cuando has intentado abrir el archivo");
+    fptr = fopen("zapatos.dat", "ab");// modo de escritura binaria
+    if (fptr == NULL) {
+        printf("Ha abido un eror cuando has intentado abrir el archivo");
         exit(1);
     }
 
-    
-    fprintf(fp, "Nombre: %s\n", zapato.nombre);
-    fprintf(fp, "Color: %s\n", zapato.color);
-    fprintf(fp, "Talla: %d\n", zapato.talla);
-    fprintf(fp, "Precio: %.2f\n", zapato.precio);
-    fprintf(fp, "\n");
+    fwrite(&zapato, sizeof(struct Zapato), 1, fptr);
 
-    printf("\nEl zapato se ha anyadido");
+    printf("\nEl zapato se ha añadido");
 
-    fclose(fp);
+    fclose(fptr);
 
     return 0;
 }
