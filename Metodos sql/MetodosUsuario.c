@@ -5,6 +5,8 @@
 int mostrarUsuarios(sqlite3 *tiendaBD) {  //este metodo es para que el administrador tenga la opcion de ver todos los usuarios registrados
 	sqlite3_stmt *stmt;
 
+	int id;
+
 	char sql[] = "select nombre, apellido, correo, dni, contrasena from usuario";
 
 	int result = sqlite3_prepare_v2(tiendaBD, sql, -1, &stmt, NULL) ;
@@ -68,7 +70,7 @@ int insertarUsuario(sqlite3 *tiendaBD, char nombre[], char apellido[], char corr
 
 	printf("SQL query prepared (INSERT)\n");
 
-	result = sqlite3_bind_text(stmt, 1,2,3,4,5 nombre, strlen(nombre), apellido, strlen(apellido), correo, strlen(correo), dni, strlen(dni), contraseña, strlen(contraseña) SQLITE_STATIC);
+	result = sqlite3_bind_text(stmt, 1,2,3,4,5,6,7,8,9,10, nombre, strlen(nombre), apellido, strlen(apellido), correo, strlen(correo), dni, strlen(dni), contraseña, strlen(contraseña) SQLITE_STATIC);
 	if (result != SQLITE_OK) {
 		printf("Error binding parameters\n");
 		printf("%s\n", sqlite3_errmsg(tiendaBD));
