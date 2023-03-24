@@ -28,7 +28,7 @@ int main() {
     printf("Introduce tu nombre de usuario: ");
     scanf("%s", nombre);
 
-    printf("Introduce tu contraseña: ");
+    printf("Introduce tu contrasenia: ");
     scanf("%s", contrasena);
 
     // comprobar si el nombre de usuario y contraseña introducidos coinciden con alguno en el archivo
@@ -41,7 +41,7 @@ int main() {
 
     // mostrar mensaje de éxito o fallo en el inicio de sesión
     if (encontrado) {
-        printf("¡Inicio de sesión exitoso!\n");
+        printf("Inicio de sesion exitoso!\n");
     } else {
         printf("Nombre de usuario o contraseña incorrectos.\n");
     }

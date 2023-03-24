@@ -32,7 +32,7 @@ void write_users_file() {
         return;
     }
     for (int i = 0; i < num_users; i++) {
-        fprintf(file, "%s %s\n", users[i].username, users[i].password);
+        fprintf(file, "%s;%s\n", users[i].username, users[i].password);
     }
     fclose(file);
 }

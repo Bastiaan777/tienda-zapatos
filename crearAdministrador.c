@@ -19,13 +19,27 @@ void read_admins_file() {
     if (file == NULL) {
         return;
     }
+    num_admin = 0; // reinicia el contador
+    while (!feof(file)) {
+        if (fscanf(file, "%[^;];%[^;];%s", admin[num_admin].username, admin[num_admin].password, admin[num_admin].codigo) != 3) {
+            break; // termina si la línea leída no tiene tres elementos
+        }
+        num_admin++; // aumenta el contador al inicio
+    }
+    fclose(file);
+}
+
+/*void read_admins_file() {
+    FILE *file = fopen("admins.txt", "r");
+    if (file == NULL) {
+        return;
+    }
     while (!feof(file)) {
         fscanf(file, "%s %s %s", admin[num_admin].username, admin[num_admin].password, admin[num_admin].codigo);
         num_admin++;
     }
     fclose(file);
-}
-
+}*/
 void write_admins_file() {
     FILE *file = fopen("admins.txt", "w");
     if (file == NULL) {
@@ -33,10 +47,11 @@ void write_admins_file() {
         return;
     }
     for (int i = 0; i < num_admin; i++) {
-        fprintf(file, "%s %s %s\n", admin[i].username, admin[i].password, admin[i].codigo);
+        fprintf(file, "%s;%s;%s\n", admin[i].username, admin[i].password, admin[i].codigo);
     }
     fclose(file);
 }
+
 
 void create_admin() {
     char username[50];
@@ -54,9 +69,9 @@ void create_admin() {
         printf("No se pueden crear más administradores\n");
         return;
     }
-    strcpy(admin[num_admin].username, username);
-    strcpy(admin[num_admin].password, password);
-    strcpy(admin[num_admin].codigo, codigo);
+    sprintf(admin[num_admin].username, "%s", username);
+    sprintf(admin[num_admin].password, "%s", password);
+    sprintf(admin[num_admin].codigo, "%s", codigo);
     num_admin++;
     write_admins_file();
     printf("Administrador creado exitosamente\n");
