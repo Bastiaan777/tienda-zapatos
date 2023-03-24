@@ -8,7 +8,7 @@ int opcion;
 
 
 
-printf("BIENVENIDO ADMINISTRADOR, QUE DESEAS HACER?\n");
+printf("BIENVENIDO USUARIO, QUE DESEAS HACER?\n");
 
 printf("1. Mi perfil\n");
 printf("2. Menu\n");

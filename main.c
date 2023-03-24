@@ -5,19 +5,19 @@ int main(){
 
 int opcion;
 
-printf("BIENVENIDO, ERES ADMINISTRADOR O USUARIO?\n");
+printf("BIENVENIDO, ¿ERES ADMINISTRADOR O USUARIO?\n");
 
 printf("1. Soy un usuario\n");
 printf("2. Soy un administrador\n");
-printf("3. Quiero crearme una cuenta\n");
+printf("3. Quiero crearme una cuenta\n"); //de usuario
 printf("4. Salir\n");
 
-printf("Seleccione la opcion que desea");
+printf("Seleccione la opcion que desea: ");
 scanf("%d", &opcion);
 
     switch(opcion){
 
-        case 1:
+        case 1: ;
 
             char Correo[50];
 
@@ -27,7 +27,7 @@ scanf("%d", &opcion);
             //comprobar que el correo este en la base de datos, de ser asi, pediriamos su contraseña.
             break;
 
-        case 2:
+        case 2: ;
 
             int Codigo;
 
@@ -37,13 +37,13 @@ scanf("%d", &opcion);
             //comprobar que el codigo este en la base de datos, de ser asi, le pedimos la contraseña.
             break;
 
-        case 3:
+        case 3: ;
 
-            print("has decidido crearte una cuenta!\n");
+            printf("has decidido crearte una cuenta!\n");
 
             break;
 
-        case 4:
+        case 4: ;
 
             printf("adios!");
             break;
