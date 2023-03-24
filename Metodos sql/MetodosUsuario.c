@@ -7,7 +7,7 @@ int mostrarUsuarios(sqlite3 *tiendaBD) {  //este metodo es para que el administr
 
 	int id;
 
-	char sql[] = "select nombre, apellido, correo, dni, contrasena from usuario";
+	char sql[] = "select dni, nombre, apellido, correo, contrasena from usuario";
 
 	int result = sqlite3_prepare_v2(tiendaBD, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
@@ -18,10 +18,10 @@ int mostrarUsuarios(sqlite3 *tiendaBD) {  //este metodo es para que el administr
 
 	printf("SQL query prepared (SELECT)\n");
 
+	int dni;
 	char nombre[100];
 	char apellido[100];
     char correo [100];
-    int dni;
     char contraseña[100];
 
 	printf("\n");
@@ -34,7 +34,10 @@ int mostrarUsuarios(sqlite3 *tiendaBD) {  //este metodo es para que el administr
 		result = sqlite3_step(stmt) ;
 		if (result == SQLITE_ROW) {
 			id = sqlite3_column_int(stmt, 0);
-			strcpy(nombre, (char *) sqlite3_column_text(stmt, 1)); //nose si esta bien
+			strcpy(nombre, (char *) sqlite3_column_text(stmt, 1));
+			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
+			strcpy(correo, (char *) sqlite3_column_text(stmt, 3));
+			strcpy(contraseña, (char *) sqlite3_column_text(stmt, 4));
             printf("Nombre: %s\n Apellido:%s\n Correo: %s\n dni: %d Contraseña", nombre, apellido, correo, dni, contraseña);
 		}
 	} while (result == SQLITE_ROW);
@@ -57,7 +60,7 @@ int mostrarUsuarios(sqlite3 *tiendaBD) {  //este metodo es para que el administr
 	return SQLITE_OK;
 }
 
-int insertarUsuario(sqlite3 *tiendaBD, char nombre[], char apellido[], char correo[], char contraseña[]) { //este metodo es para crear un usuario nuevo
+int insertarUsuario(sqlite3 *tiendaBD, int dni, char nombre[], char apellido[], char correo[], char contraseña[]) { //este metodo es para crear un usuario nuevo
 	sqlite3_stmt *stmt;
 
 	char sql[] = "insert into usuario (nombre, apellido, correo, dni, contrasena) values (?,?,?,?,?)";
@@ -70,18 +73,21 @@ int insertarUsuario(sqlite3 *tiendaBD, char nombre[], char apellido[], char corr
 
 	printf("SQL query prepared (INSERT)\n");
 
-	result = sqlite3_bind_text(stmt, 1,2,3,4,5,6,7,8,9,10, nombre, strlen(nombre), apellido, strlen(apellido), correo, strlen(correo), dni, strlen(dni), contraseña, strlen(contraseña) SQLITE_STATIC);
-	if (result != SQLITE_OK) {
-		printf("Error binding parameters\n");
-		printf("%s\n", sqlite3_errmsg(tiendaBD));
-		return result;
-	}
+	sqlite3_bind_text(stmt, 1, dni, -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 2, nombre, -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 3, apellido, -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 4, correo, -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 5, contraseña, -1, SQLITE_TRANSIENT);
+
+	
 
 	result = sqlite3_step(stmt);
 	if (result != SQLITE_DONE) {
 		printf("Error inserting new data into country table\n");
 		return result;
 	}
+
+	printf("Cliente insertado correctamente\n");
 
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) {
@@ -90,7 +96,6 @@ int insertarUsuario(sqlite3 *tiendaBD, char nombre[], char apellido[], char corr
 		return result;
 	}
 
-	printf("Prepared statement finalized (INSERT)\n");
 
 	return SQLITE_OK;
 
