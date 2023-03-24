@@ -9,7 +9,8 @@ printf("BIENVENIDO, ERES ADMINISTRADOR O USUARIO?\n");
 
 printf("1. Soy un usuario\n");
 printf("2. Soy un administrador\n");
-printf("3. Salir\n");
+printf("3. Quiero crearme una cuenta\n");
+printf("4. Salir\n");
 
 printf("Seleccione la opcion que desea");
 scanf("%d", &opcion);
@@ -37,6 +38,12 @@ scanf("%d", &opcion);
             break;
 
         case 3:
+
+            print("has decidido crearte una cuenta!\n");
+
+            break;
+
+        case 4:
 
             printf("adios!");
             break;
