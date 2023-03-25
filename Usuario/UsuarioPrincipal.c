@@ -16,7 +16,7 @@ int main() {
 
     int opcion, talla;
     char tipo[50], nombre[50], color[20];
-    //char username[50], char password[50];
+    char username[50] = "nombre_de_usuario";
 
     do {
         printf("BIENVENIDO USUARIO, QUE DESEAS HACER?\n");
@@ -63,7 +63,7 @@ int main() {
             
             case 3:
                 printf("Estos son los datos de tu perfil\n");
-                //mostrar_usuario(username); //llama al metodo
+                mostrar_usuario(username); //llama al metodo
                 break;
             
             case 0:
