@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <string.h>
 
 #define MAX_ADMINS 100   // número máximo de administradores permitidos
@@ -25,7 +25,7 @@ int main() {
 
     fclose(archivo); // cerrar archivo
 
-    printf("Introduce tu nombre de usuario: ");
+    printf("Introduce tu nombre de administrador: ");
     scanf("%s", nombre);
 
     printf("Introduce tu contrasenia: ");
@@ -50,4 +50,4 @@ int main() {
     }
 
     return 0; // salir del programa con código de éxito
-}
+}*/

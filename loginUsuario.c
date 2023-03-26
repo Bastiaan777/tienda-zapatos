@@ -1,8 +1,9 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <string.h>
 
 #define MAX_USUARIOS 100  // número máximo de usuarios permitidos
 #define MAX_LEN 50        // longitud máxima para el nombre de usuario y contraseña
+
 
 int main() {
     FILE* archivo;
@@ -47,4 +48,4 @@ int main() {
     }
 
     return 0; // salir del programa con código de éxito
-}
+}*/

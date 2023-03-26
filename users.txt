@@ -1,2 +1,3 @@
-bas;han
-der;pa
+unaitxi;pitilin;;hola;adios;;
+vato;vato;
+basti;holi

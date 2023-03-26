@@ -1,13 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "crearUsuario.h"
 
 #define MAX_USERS 100 // máximo número de usuarios que podemos tener
 
-typedef struct {
-    char username[50];
-    char password[50];
-} User;
 
 User users[MAX_USERS]; // arreglo para almacenar todos los usuarios
 
@@ -55,25 +52,3 @@ void create_user() {
     printf("Usuario creado exitosamente\n");
 }
 
-int main() {
-    read_users_file();
-    printf("Bienvenido al sistema de registro de usuarios\n");
-    while (1) {
-        printf("¿Que deseas hacer?\n");
-        printf("1. Crear usuario\n");
-        printf("2. Salir\n");
-        int choice;
-        scanf("%d", &choice);
-        switch (choice) {
-            case 1:
-                create_user();
-                break;
-            case 2:
-                printf("Adiós!\n");
-                exit(0);
-            default:
-                printf("Opción inválida\n");
-        }
-    }
-    return 0;
-}

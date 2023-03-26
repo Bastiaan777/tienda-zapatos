@@ -1,14 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "crearAdministrador.h"
 
-#define MAX_ADMIN 20 // máximo número de usuarios que podemos tener
+ 
 
-typedef struct {
-    char username[50];
-    char password[50];
-    char codigo [20];
-} Admin;
+
 
 Admin admin[MAX_ADMIN]; // arreglo para almacenar todos los usuarios
 
@@ -77,7 +74,7 @@ void create_admin() {
     printf("Administrador creado exitosamente\n");
 }
 
-int main() {
+/*int main() {
     read_admins_file();
     printf("Bienvenido al sistema de registro de administradores\n");
     while (1) {
@@ -98,4 +95,4 @@ int main() {
         }
     }
     return 0;
-}
+}*/
