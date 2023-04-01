@@ -1,14 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Zapato {
+struct Zapato
+{
     int talla;
     char color[50];
     char nombre[50];
     float precio;
 };
 
-int main() {
+int main()
+{
     struct Zapato zapato;
 
     printf("Introduzca la talla del zapato: "); // obtener talla, color,nombre, precio
@@ -25,8 +27,9 @@ int main() {
 
     FILE *fptr;
 
-    fptr = fopen("zapatos.dat", "ab");// modo de escritura binaria
-    if (fptr == NULL) {
+    fptr = fopen("zapatos.dat", "ab"); // modo de escritura binaria
+    if (fptr == NULL)
+    {
         printf("Ha abido un eror cuando has intentado abrir el archivo");
         exit(1);
     }

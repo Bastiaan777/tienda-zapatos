@@ -1,95 +1,87 @@
 #include <stdio.h>
 #include "sqlite3.h"
 
+int main()
+{
 
-int main(){
+    int opcion;
 
-int opcion;
+    printf("BIENVENIDO ADMINISTRADOR, QUE DESEAS HACER?\n");
 
+    printf("1. Añadir y eliminar zapatos\n");
+    printf("2. Visualizar clientes\n");
+    printf("3. Visualizar pedidos\n");
+    printf("4. Crear administrador\n");
+    printf("5. Salir\n");
 
+    printf("Seleccione la opcion que desea");
+    scanf("%d", &opcion);
 
-printf("BIENVENIDO ADMINISTRADOR, QUE DESEAS HACER?\n");
+    switch (opcion)
+    {
 
-printf("1. Añadir y eliminar zapatos\n");
-printf("2. Visualizar clientes\n");
-printf("3. Visualizar pedidos\n");
-printf("4. Crear administrador\n");
-printf("5. Salir\n");
+    case 1:
 
-printf("Seleccione la opcion que desea");
-scanf("%d", &opcion);
+        printf("Has elegido la opcion de añadir o eliminar usuarios\n");
 
-    switch(opcion){
+        // int result = sqlite3_open("test.sqlite", &tiendaBD);
+        // if (result != SQLITE_OK) {
+        // printf("Error opening database\n");
+        // return result;
+        //}
 
-        case 1:
+        printf("base de datos abierta/n");
 
-            printf("Has elegido la opcion de añadir o eliminar usuarios\n");
+        // result = insertarUsuario();
+        // if (result != SQLITE_OK) {
+        // printf("Error inserting new data\n");
+        // printf("%s\n", sqlite3_errmsg(tiendaBD));
+        // return result;
+        // }
 
-            //int result = sqlite3_open("test.sqlite", &tiendaBD);
-                //if (result != SQLITE_OK) {
-                //printf("Error opening database\n");
-               // return result;
-	        //}
+        break;
 
-            printf("base de datos abierta/n");
+    case 2:
 
-            //result = insertarUsuario();
-	        //if (result != SQLITE_OK) {
-		    //printf("Error inserting new data\n");
-		    //printf("%s\n", sqlite3_errmsg(tiendaBD));
-		    //return result;
-	        //}
-            
-            
-            break;
+        printf("Has elegido ver clientes\n");
+        sqlite3 *db;
 
-        case 2:
+        // int result = sqlite3_open("test.sqlite", &tiendaBD);
+        // if (result != SQLITE_OK) {
+        // printf("Error opening database\n");
+        // return result;
+        //}
 
-            printf("Has elegido ver clientes\n");
-            sqlite3 *db;
+        printf("base de datos abierta/n");
 
-            //int result = sqlite3_open("test.sqlite", &tiendaBD);
-                //if (result != SQLITE_OK) {
-                //printf("Error opening database\n");
-               // return result;
-	        //}
+        // result = showAllCountries(tiendaBD);
+        // if (result != SQLITE_OK) {
+        // printf("Error obteniendo los clientes\n");
+        // printf("%s\n", sqlite3_errmsg(db));
+        // return result;
+        //}
 
-            printf("base de datos abierta/n");
+        break;
 
-            //result = showAllCountries(tiendaBD);
-                //if (result != SQLITE_OK) {
-                //printf("Error obteniendo los clientes\n");
-                //printf("%s\n", sqlite3_errmsg(db));
-                //return result;
-	        //}
+    case 3:
 
-            break;
+        printf("Has elegido ver los pedidos\n");
+        break;
 
-        case 3:
+    case 4:
 
-            printf("Has elegido ver los pedidos\n");
-            break;
+        printf("Has elegido crear un administrador\n");
+        break;
 
-        case 4:
+    case 5:
 
-            printf("Has elegido crear un administrador\n");
-            break;
+        printf("Salir\n");
+        break;
 
-        case 5:
-
-            printf("Salir\n");
-            break;
-
-        
-        default:
-            printf("opcion invalida\n");
-            break;
-
-
+    default:
+        printf("opcion invalida\n");
+        break;
     }
 
-
-
-return 0;
-
+    return 0;
 }

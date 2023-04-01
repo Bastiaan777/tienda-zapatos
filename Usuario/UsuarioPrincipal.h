@@ -2,8 +2,8 @@
 #include "sqlite3.h"
 #include <string.h>
 
-
-typedef struct {
+typedef struct
+{
     char tipo[50];
     char nombre[50];
     char color[20];
@@ -14,24 +14,28 @@ typedef struct {
 Pedido cesta[100];
 int cantidad_pedidos = 0;
 
-static int mostrar_tipos(void *data, int argc, char **argv, char **azColName) {
+static int mostrar_tipos(void *data, int argc, char **argv, char **azColName)
+{
     printf("%s\n", argv[0]);
     return 0;
 }
 
-static int mostrar_zapatos_tipo(void *data, int argc, char **argv, char **azColName) {
+static int mostrar_zapatos_tipo(void *data, int argc, char **argv, char **azColName)
+{
     printf("%s - %s\n", argv[0], argv[1]);
     return 0;
 }
 
-static int mostrar_opciones_zapato(void *data, int argc, char **argv, char **azColName) {
+static int mostrar_opciones_zapato(void *data, int argc, char **argv, char **azColName)
+{
     printf("Color: %s\n", argv[0]);
     printf("Talla: %s\n", argv[1]);
     printf("Precio: $%s\n", argv[2]);
     return 0;
 }
 
-void ver_tipos(sqlite3 *db) {
+void ver_tipos(sqlite3 *db)
+{
     printf("\nTipos de zapatos disponibles:\n");
     char *zErrMsg = 0;
     int rc;
@@ -39,14 +43,16 @@ void ver_tipos(sqlite3 *db) {
     char *sql = "SELECT DISTINCT tipo FROM zapatos;";
 
     rc = sqlite3_exec(db, sql, mostrar_tipos, (void *)data, &zErrMsg);
-    if (rc != SQLITE_OK) {
+    if (rc != SQLITE_OK)
+    {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
         sqlite3_free(zErrMsg);
     }
     printf("\n");
 }
 
-void ver_zapatos_tipo(sqlite3 *db, char *tipo) {
+void ver_zapatos_tipo(sqlite3 *db, char *tipo)
+{
     printf("\nZapatos del tipo %s:\n", tipo);
     char *zErrMsg = 0;
     int rc;
@@ -55,14 +61,16 @@ void ver_zapatos_tipo(sqlite3 *db, char *tipo) {
     snprintf(sql, sizeof(sql), "SELECT nombre FROM zapatos WHERE tipo = '%s';", tipo);
 
     rc = sqlite3_exec(db, sql, mostrar_zapatos_tipo, (void *)data, &zErrMsg);
-    if (rc != SQLITE_OK) {
+    if (rc != SQLITE_OK)
+    {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
         sqlite3_free(zErrMsg);
     }
     printf("\n");
 }
 
-void ver_opciones_zapato(sqlite3 *db, char *nombre) {
+void ver_opciones_zapato(sqlite3 *db, char *nombre)
+{
     char *zErrMsg = 0;
     int rc;
     const char *data = "Callback function called";
@@ -70,14 +78,16 @@ void ver_opciones_zapato(sqlite3 *db, char *nombre) {
     snprintf(sql, sizeof(sql), "SELECT color, talla, precio FROM zapatos WHERE nombre = '%s';", nombre);
 
     rc = sqlite3_exec(db, sql, mostrar_opciones_zapato, (void *)data, &zErrMsg);
-    if (rc != SQLITE_OK) {
+    if (rc != SQLITE_OK)
+    {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
         sqlite3_free(zErrMsg);
     }
     printf("\n");
 }
 
-void agregar_a_cesta(sqlite3 *db, char *nombre, char *color, int talla, double precio) {
+void agregar_a_cesta(sqlite3 *db, char *nombre, char *color, int talla, double precio)
+{
     char *zErrMsg = 0;
     int rc;
     sqlite3_stmt *stmt;
@@ -85,14 +95,16 @@ void agregar_a_cesta(sqlite3 *db, char *nombre, char *color, int talla, double p
     snprintf(sql, sizeof(sql), "SELECT precio FROM zapatos WHERE nombre = '%s' AND color = '%s' AND talla = %d; AND precio = %f", nombre, color, talla, precio);
 
     rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
-    if (rc != SQLITE_OK) {
+    if (rc != SQLITE_OK)
+    {
         fprintf(stderr, "Cannot prepare statement: %s\n", sqlite3_errmsg(db));
         return;
     }
 
     rc = sqlite3_step(stmt);
 
-    if (rc == SQLITE_ROW) {
+    if (rc == SQLITE_ROW)
+    {
         double precio = sqlite3_column_double(stmt, 0);
         strcpy(cesta[cantidad_pedidos].nombre, nombre);
         strcpy(cesta[cantidad_pedidos].color, color);
@@ -100,15 +112,19 @@ void agregar_a_cesta(sqlite3 *db, char *nombre, char *color, int talla, double p
         cesta[cantidad_pedidos].precio = precio;
         cantidad_pedidos++;
         printf("\nPedido añadido a la cesta.\n\n");
-    } else {
+    }
+    else
+    {
         printf("\nError al añadir el pedido a la cesta.\n\n");
     }
 
     sqlite3_finalize(stmt);
 }
 
-void ver_cesta() {
-    for (int i = 0; i < cantidad_pedidos; i++) {
+void ver_cesta()
+{
+    for (int i = 0; i < cantidad_pedidos; i++)
+    {
         printf("Pedido %d:\n", i + 1);
         printf("  Nombre: %s\n", cesta[i].nombre);
         printf("  Color: %s\n", cesta[i].color);
@@ -117,12 +133,14 @@ void ver_cesta() {
     }
 }
 
-void obtener_precio(sqlite3 *db, char *nombre, char *color, int talla, double *precio) {
+void obtener_precio(sqlite3 *db, char *nombre, char *color, int talla, double *precio)
+{
     sqlite3_stmt *stmt;
     char sql[] = "SELECT precio FROM zapatos WHERE nombre = ? AND color = ? AND talla = ?;";
 
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
-    if (rc != SQLITE_OK) {
+    if (rc != SQLITE_OK)
+    {
         fprintf(stderr, "Cannot prepare statement: %s\n", sqlite3_errmsg(db));
         return;
     }
@@ -132,18 +150,23 @@ void obtener_precio(sqlite3 *db, char *nombre, char *color, int talla, double *p
     sqlite3_bind_int(stmt, 3, talla);
 
     rc = sqlite3_step(stmt);
-    if (rc == SQLITE_ROW) {
+    if (rc == SQLITE_ROW)
+    {
         *precio = sqlite3_column_double(stmt, 0);
-    } else {
+    }
+    else
+    {
         fprintf(stderr, "Error al obtener el precio: %s\n", sqlite3_errmsg(db));
     }
 
     sqlite3_finalize(stmt);
 }
 
-void mostrar_usuario(const char *username) { //nose si esta bien del todo
+void mostrar_usuario(const char *username)
+{ // nose si esta bien del todo
     FILE *file = fopen("users.txt", "r");
-    if (file == NULL) {
+    if (file == NULL)
+    {
         printf("Error al abrir el archivo users.txt.\n");
         return;
     }
@@ -151,8 +174,10 @@ void mostrar_usuario(const char *username) { //nose si esta bien del todo
     char user[50];
     char password[50];
 
-    while (fscanf(file, "%s %s", user, password) == 2) {
-        if (strcmp(user, username) == 0) {
+    while (fscanf(file, "%s %s", user, password) == 2)
+    {
+        if (strcmp(user, username) == 0)
+        {
             printf("Usuario: %s\n", user);
             printf("Contraseña: %s\n", password);
             fclose(file);
@@ -163,6 +188,3 @@ void mostrar_usuario(const char *username) { //nose si esta bien del todo
     printf("Usuario no encontrado.\n");
     fclose(file);
 }
-
-
-
