@@ -4,8 +4,8 @@
 #include "AnyadirZapatos.h"
 #include <stdlib.h>
 #include <string.h>
-#include <sqlite3.h>
-#include <EliminarZapatos.h>
+#include "sqlite3.h"
+#include "EliminarZapatos.h"
 
 
 #define MAX_USUARIOS 100
