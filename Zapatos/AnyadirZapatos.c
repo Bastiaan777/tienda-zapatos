@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "AnyadirZapatos.h"
+ #include <sqlite3.h>
 
 
 
@@ -31,17 +32,18 @@ int Zapateria_init(Zapateria *zapateria, const char *db_filename)
 int Zapateria_add_zapato(Zapateria *zapateria, Zapato *zapato)
 {
     sqlite3_stmt *stmt;
-    int rc = sqlite3_prepare_v2(zapateria->db, "INSERT INTO zapatos (tipo, nombre, color, talla, precio) VALUES (?, ?, ?, ?, ?);", -1, &stmt, NULL);
+    int rc = sqlite3_prepare_v2(zapateria->db, "INSERT INTO zapatos (ID, tipo, nombre, color, talla, precio) VALUES (?, ?, ?, ?, ?, ?);", -1, &stmt, NULL);
     if (rc != SQLITE_OK)
     {
         fprintf(stderr, "Error al preparar la consulta: %s\n", sqlite3_errmsg(zapateria->db));
         return 1;
     }
-    sqlite3_bind_text(stmt, 1, zapato->tipo, strlen(zapato->tipo), SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 2, zapato->nombre, strlen(zapato->nombre), SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 3, zapato->nombre, strlen(zapato->color), SQLITE_TRANSIENT);
-    sqlite3_bind_double(stmt, 4, zapato->talla);
-    sqlite3_bind_double(stmt, 5, zapato->precio);
+    sqlite3_bind_int(stmt, 1, zapato->id);
+    sqlite3_bind_text(stmt, 2, zapato->tipo, strlen(zapato->tipo), SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 3, zapato->nombre, strlen(zapato->nombre), SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 4, zapato->nombre, strlen(zapato->color), SQLITE_TRANSIENT);
+    sqlite3_bind_double(stmt, 5, zapato->talla);
+    sqlite3_bind_double(stmt, 6, zapato->precio);
 
     rc = sqlite3_step(stmt);
     if (rc != SQLITE_DONE)

@@ -4,11 +4,13 @@
 
 typedef struct
 {
-     char tipo[50];
+    int id;
+    char tipo[50];
     char nombre[50];
     char color[50];
     float talla;
     float precio;
+    
 } Zapato;
 
 typedef struct

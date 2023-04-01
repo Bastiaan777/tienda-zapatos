@@ -4,6 +4,7 @@
 
 typedef struct
 {
+    int id;
     char tipo[50];
     char nombre[50];
     char color[50];

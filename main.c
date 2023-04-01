@@ -4,6 +4,9 @@
 #include "AnyadirZapatos.h"
 #include <stdlib.h>
 #include <string.h>
+#include <sqlite3.h>
+#include <EliminarZapatos.h>
+
 
 #define MAX_USUARIOS 100
 #define MAX_LEN 50
@@ -195,6 +198,10 @@ int main()
                 Zapateria zapateria;
                 Zapateria_init(&zapateria, "zapateria.db");
                 //Zapato zapato = {0, "Adidas", "Superstar", 100.0};
+
+                printf("ID del zapato a eliminar: \n");
+                scanf("%d", zp.id);
+
                 printf("Tipo de zapato a aniadir: \n");
                 scanf("%c", zp.tipo);
 
@@ -215,29 +222,17 @@ int main()
                 return 0;
                 break;
 
-            case 2: ;
+            case 2: ; //se va a elimiar solo pasandole el id
 
                 printf("Has escogido la opcion de eliminar zapatos: \n");
-                Zapateria zapateria;
-                Zapato zp;
+                
+                
                 Zapateria_init(&zapateria, "zapateria.db");
 
-                printf("Tipo de zapato a eliminar: \n");
-                scanf("%c", zp.tipo);
-
-                printf("Nombre del zapato a eliminar: \n");
-                scanf("%c", zp.nombre);
-
-                printf("Color del zapato a eliminar: \n");
-                scanf("%c", zp.color);
-
-                printf("Talla del zapato a eliminar: \n");
-                scanf("%f", zp.talla);
-
-                printf("Precio del zapato a eliminar: \n");
-                scanf("%f", zp.precio);
+                printf("ID del zapato a eliminar: \n");
+                scanf("%d", zp.id);
                
-                Zapateria_eliminar_zapato(&zapateria, &zp); // Elimina el zapato con id 1
+                Zapateria_eliminar_zapato(&zapateria, &zp.id); // Elimina el zapato con id 1
                 Zapateria_close(&zapateria);
                 return 0;
             }
