@@ -24,20 +24,7 @@ int main()
 
         printf("Has elegido la opcion de añadir o eliminar usuarios\n");
 
-        // int result = sqlite3_open("test.sqlite", &tiendaBD);
-        // if (result != SQLITE_OK) {
-        // printf("Error opening database\n");
-        // return result;
-        //}
-
         printf("base de datos abierta/n");
-
-        // result = insertarUsuario();
-        // if (result != SQLITE_OK) {
-        // printf("Error inserting new data\n");
-        // printf("%s\n", sqlite3_errmsg(tiendaBD));
-        // return result;
-        // }
 
         break;
 
@@ -46,20 +33,7 @@ int main()
         printf("Has elegido ver clientes\n");
         sqlite3 *db;
 
-        // int result = sqlite3_open("test.sqlite", &tiendaBD);
-        // if (result != SQLITE_OK) {
-        // printf("Error opening database\n");
-        // return result;
-        //}
-
         printf("base de datos abierta/n");
-
-        // result = showAllCountries(tiendaBD);
-        // if (result != SQLITE_OK) {
-        // printf("Error obteniendo los clientes\n");
-        // printf("%s\n", sqlite3_errmsg(db));
-        // return result;
-        //}
 
         break;
 

@@ -1,64 +1,68 @@
+#include <sqlite3.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-struct Zapato
+// Definición de la estructura de datos para representar los zapatos
+typedef struct
 {
-    int talla;
-    char color[50];
-    char nombre[50];
+    int id;
+    char marca[50];
+    char modelo[50];
     float precio;
-};
+} Zapato;
 
+// Definición de la clase para eliminar zapatos de la base de datos
+typedef struct
+{
+    sqlite3 *db;
+} Zapateria;
+
+// Función para inicializar la base de datos
+int Zapateria_init(Zapateria *zapateria, const char *db_filename)
+{
+    int rc = sqlite3_open(db_filename, &zapateria->db);
+    if (rc != SQLITE_OK)
+    {
+        fprintf(stderr, "Error al abrir la base de datos: %s\n", sqlite3_errmsg(zapateria->db));
+        return 1;
+    }
+    return 0;
+}
+
+// Función para eliminar un zapato de la base de datos
+int Zapateria_eliminar_zapato(Zapateria *zapateria, int id)
+{
+    sqlite3_stmt *stmt;
+    int rc = sqlite3_prepare_v2(zapateria->db, "DELETE FROM zapatos WHERE id = ?;", -1, &stmt, NULL);
+    if (rc != SQLITE_OK)
+    {
+        fprintf(stderr, "Error al preparar la consulta: %s\n", sqlite3_errmsg(zapateria->db));
+        return 1;
+    }
+    sqlite3_bind_int(stmt, 1, id);
+    rc = sqlite3_step(stmt);
+    if (rc != SQLITE_DONE)
+    {
+        fprintf(stderr, "Error al ejecutar la consulta: %s\n", sqlite3_errmsg(zapateria->db));
+        return 1;
+    }
+    sqlite3_finalize(stmt);
+    return 0;
+}
+
+// Función para cerrar la base de datos
+void Zapateria_close(Zapateria *zapateria)
+{
+    sqlite3_close(zapateria->db);
+}
+
+// Ejemplo de uso
 int main()
 {
-    FILE *fptr, *temp;
-    struct Zapato zapato;
-    int encontrado = 0, talla;
-
-    printf("Introduzca la talla del zapato que quiere eliminar: ");
-    scanf("%d", &talla);
-
-    fptr = fopen("zapatos.dat", "rb");
-    if (fptr == NULL)
-    {
-        printf("Ha habido un error cuando has intentado abrir el archivo");
-        exit(1);
-    }
-
-    temp = fopen("temp.dat", "wb");
-    if (temp == NULL)
-    {
-        printf("Ha habido un error al crear el archivo temporal");
-        exit(1);
-    }
-
-    while (fread(&zapato, sizeof(struct Zapato), 1, fptr))
-    {
-        if (zapato.talla != talla)
-        {
-            fwrite(&zapato, sizeof(struct Zapato), 1, temp);
-        }
-        else
-        {
-            encontrado = 1;
-        }
-    }
-
-    if (!encontrado)
-    {
-        printf("No se ha encontrado ningún zapato con esa talla");
-    }
-    else
-    {
-        printf("El zapato se ha eliminado correctamente");
-    }
-
-    fclose(fptr);
-    fclose(temp);
-
-    remove("zapatos.dat");
-    rename("temp.dat", "zapatos.dat");
-
+    Zapateria zapateria;
+    Zapateria_init(&zapateria, "zapateria.db");
+    Zapateria_eliminar_zapato(&zapateria, 1); // Elimina el zapato con id 1
+    Zapateria_close(&zapateria);
     return 0;
 }

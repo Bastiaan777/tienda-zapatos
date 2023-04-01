@@ -1,0 +1,28 @@
+#include <sqlite3.h>
+#ifndef AnyadirZapatos_h
+#define AnyadirZapatos_h
+
+typedef struct
+{
+    int id;
+    char marca[50];
+    char modelo[50];
+    float precio;
+} Zapato;
+
+// Definición de la clase para añadir zapatos y guardarlos en una base de datos
+typedef struct
+{
+    sqlite3 *db;
+} Zapateria;
+
+// Función para inicializar la base de datos y crear la tabla de zapatos
+int Zapateria_init(Zapateria *zapateria, const char *db_filename);
+
+// Función para añadir un zapato a la base de datos
+int Zapateria_add_zapato(Zapateria *zapateria, Zapato *zapato);
+
+// Función para cerrar la base de datos
+void Zapateria_close(Zapateria *zapateria);
+
+#endif
