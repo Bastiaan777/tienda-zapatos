@@ -31,15 +31,18 @@ int Zapateria_init(Zapateria *zapateria, const char *db_filename)
 int Zapateria_add_zapato(Zapateria *zapateria, Zapato *zapato)
 {
     sqlite3_stmt *stmt;
-    int rc = sqlite3_prepare_v2(zapateria->db, "INSERT INTO zapatos (marca, modelo, precio) VALUES (?, ?, ?);", -1, &stmt, NULL);
+    int rc = sqlite3_prepare_v2(zapateria->db, "INSERT INTO zapatos (tipo, nombre, color, talla, precio) VALUES (?, ?, ?, ?, ?);", -1, &stmt, NULL);
     if (rc != SQLITE_OK)
     {
         fprintf(stderr, "Error al preparar la consulta: %s\n", sqlite3_errmsg(zapateria->db));
         return 1;
     }
-    sqlite3_bind_text(stmt, 1, zapato->marca, strlen(zapato->marca), SQLITE_TRANSIENT);
-    sqlite3_bind_text(stmt, 2, zapato->modelo, strlen(zapato->modelo), SQLITE_TRANSIENT);
-    sqlite3_bind_double(stmt, 3, zapato->precio);
+    sqlite3_bind_text(stmt, 1, zapato->tipo, strlen(zapato->tipo), SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 2, zapato->nombre, strlen(zapato->nombre), SQLITE_TRANSIENT);
+    sqlite3_bind_text(stmt, 3, zapato->nombre, strlen(zapato->color), SQLITE_TRANSIENT);
+    sqlite3_bind_double(stmt, 4, zapato->talla);
+    sqlite3_bind_double(stmt, 5, zapato->precio);
+
     rc = sqlite3_step(stmt);
     if (rc != SQLITE_DONE)
     {
@@ -56,13 +59,3 @@ void Zapateria_close(Zapateria *zapateria)
     sqlite3_close(zapateria->db);
 }
 
-// Ejemplo de uso --> Poner en main
-int main()
-{
-    Zapateria zapateria;
-    Zapateria_init(&zapateria, "zapateria.db");
-    Zapato zapato = {0, "Adidas", "Superstar", 100.0};
-    Zapateria_add_zapato(&zapateria, &zapato);
-    Zapateria_close(&zapateria);
-    return 0;
-}

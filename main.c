@@ -189,29 +189,73 @@ int main()
 
             case 1:;
 
+                Zapato zp;
+
                 printf("Has escogido la opcion de aniadir zapatos: \n");
                 Zapateria zapateria;
                 Zapateria_init(&zapateria, "zapateria.db");
-                Zapato zapato = {0, "Adidas", "Superstar", 100.0};
-                Zapateria_add_zapato(&zapateria, &zapato);
+                //Zapato zapato = {0, "Adidas", "Superstar", 100.0};
+                printf("Tipo de zapato a aniadir: \n");
+                scanf("%c", zp.tipo);
+
+                printf("Nombre del zapato a aniadir: \n");
+                scanf("%c", zp.nombre);
+
+                printf("Color del zapato a aniadir: \n");
+                scanf("%c", zp.color);
+
+                printf("Talla del zapato aniadir: \n");
+                scanf("%f", zp.talla);
+
+                printf("Precio del zapato aniadir: \n");
+                scanf("%f", zp.precio);
+
+                Zapateria_add_zapato(&zapateria, &zp);
                 Zapateria_close(&zapateria);
                 return 0;
                 break;
-            }
 
-            else
+            case 2: ;
+
+                printf("Has escogido la opcion de eliminar zapatos: \n");
+                Zapateria zapateria;
+                Zapato zp;
+                Zapateria_init(&zapateria, "zapateria.db");
+
+                printf("Tipo de zapato a eliminar: \n");
+                scanf("%c", zp.tipo);
+
+                printf("Nombre del zapato a eliminar: \n");
+                scanf("%c", zp.nombre);
+
+                printf("Color del zapato a eliminar: \n");
+                scanf("%c", zp.color);
+
+                printf("Talla del zapato a eliminar: \n");
+                scanf("%f", zp.talla);
+
+                printf("Precio del zapato a eliminar: \n");
+                scanf("%f", zp.precio);
+               
+                Zapateria_eliminar_zapato(&zapateria, &zp); // Elimina el zapato con id 1
+                Zapateria_close(&zapateria);
+                return 0;
+            }
+        }
+
+        else
             {
                 printf("Nombre de usuario, contrasenia o codigo de administrador incorrectos.\n");
             }
-
-            return 0;
+             return 0;
 
             break;
-
+        
         default:
             printf("opcion invalida\n");
             break;
-        }
+
+        
 
         return 0;
     }

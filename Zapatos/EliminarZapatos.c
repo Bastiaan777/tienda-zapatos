@@ -2,21 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "EliminarZapatos.h"
 
 // Definición de la estructura de datos para representar los zapatos
-typedef struct
-{
-    int id;
-    char marca[50];
-    char modelo[50];
-    float precio;
-} Zapato;
+
 
 // Definición de la clase para eliminar zapatos de la base de datos
-typedef struct
-{
-    sqlite3 *db;
-} Zapateria;
+
 
 // Función para inicializar la base de datos
 int Zapateria_init(Zapateria *zapateria, const char *db_filename)
@@ -57,12 +49,3 @@ void Zapateria_close(Zapateria *zapateria)
     sqlite3_close(zapateria->db);
 }
 
-// Ejemplo de uso
-int main()
-{
-    Zapateria zapateria;
-    Zapateria_init(&zapateria, "zapateria.db");
-    Zapateria_eliminar_zapato(&zapateria, 1); // Elimina el zapato con id 1
-    Zapateria_close(&zapateria);
-    return 0;
-}

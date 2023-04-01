@@ -1,12 +1,13 @@
-#include <sqlite3.h>
+#include "sqlite3.h"
 #ifndef AnyadirZapatos_h
 #define AnyadirZapatos_h
 
 typedef struct
 {
-    int id;
-    char marca[50];
-    char modelo[50];
+    char tipo[50];
+    char nombre[50];
+    char color[50];
+    float talla;
     float precio;
 } Zapato;
 
