@@ -2,6 +2,7 @@
 #include "sqlite3.h"
 #include <string.h>
 #include "UsuarioPrincipal.h"
+#include <time.h>
 
 Pedido cesta[100];
 int cantidad_pedidos = 0;
@@ -179,4 +180,24 @@ void mostrar_usuario(const char *username)
 
     printf("Usuario no encontrado.\n");
     fclose(file);
+}
+
+void comprar_cesta(sqlite3 *db, char *username) {
+    char *zErrMsg = 0;
+    int rc;
+    char sql[200];
+
+    for (int i = 0; i < cantidad_pedidos; i++) {
+        snprintf(sql, sizeof(sql), "INSERT INTO compras (username, nombre, color, talla, precio) VALUES ('%s', '%s', '%s', %d, %f);",
+                 username, cesta[i].nombre, cesta[i].color, cesta[i].talla, cesta[i].precio);
+
+        rc = sqlite3_exec(db, sql, 0, 0, &zErrMsg);
+        if (rc != SQLITE_OK) {
+            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+    }
+
+    cantidad_pedidos = 0;
+    printf("\nCompra realizada con éxito.\n\n");
 }

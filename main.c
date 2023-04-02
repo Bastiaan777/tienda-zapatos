@@ -7,6 +7,7 @@
 #include "sqlite3.h"
 #include "EliminarZapatos.h"
 #include "UsuarioPrincipal.h"
+#include <time.h>
 
 
 #define MAX_USUARIOS 100
@@ -152,6 +153,7 @@ int main()
                 printf("1. Ver zapatos\n");
                 printf("2. Ver cesta\n");
                 printf("3. Mi perfil\n");
+                printf("4. Comprar\n");
                 printf("0. Salir\n");
                 scanf("%d", &opcion);
 
@@ -195,6 +197,13 @@ int main()
                     printf("Estos son los datos de tu perfil\n");
                     mostrar_usuario(username); // llama al metodo
                     break;
+
+                case 4:
+                    printf("\nComprar cesta:\n");
+                    comprar_cesta(db, username);
+                    printf("\n");
+                    break;
+                
 
                 case 0:
                     printf("Gracias por usar nuestra tienda. ¡Hasta luego!\n");
