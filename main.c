@@ -14,6 +14,16 @@
 #define MAX_LEN 50
 #define MAX_ADMINS 100
 
+//FUNCION PARA IMPRIMIR TODOS LOS ZAPATOS DE LA BD EN ELIMINAR ZAPATO
+int imprimirZapatos(void *data, int tamanyo, char **zapato, char **nombreColumna){
+   int i;
+   for(i=0; i<tamanyo; i++){
+      printf("%s = %s  ", nombreColumna[i], zapato[i]);
+   }
+   printf("\n");
+   return 0;
+}
+
 int main()
 {
 
@@ -276,6 +286,8 @@ int main()
             printf("Seleccione la opcion que desea: ");
             scanf("%d", &opciones2);
 
+            Zapateria zapateria;
+            
             switch (opciones2)
             {
 
@@ -284,31 +296,29 @@ int main()
                 Zapato zp;
 
                 printf("Has escogido la opcion de aniadir zapatos: \n");
-                Zapateria zapateria;
                 Zapateria_init(&zapateria, "zapateria.db");
                 //Zapato zapato = {0, "Adidas", "Superstar", 100.0};
 
-                printf("ID del zapato a eliminar: \n");
-                scanf("%d", zp.id);
+                printf("ID del zapato a aniadir: ");
+                scanf("%d", &zp.id);
 
-                printf("Tipo de zapato a aniadir: \n");
-                scanf("%c", zp.tipo);
+                printf("Tipo de zapato a aniadir: ");
+                scanf("%s", &zp.tipo);
 
-                printf("Nombre del zapato a aniadir: \n");
-                scanf("%c", zp.nombre);
+                printf("Nombre del zapato a aniadir: ");
+                scanf("%s", &zp.nombre);
 
-                printf("Color del zapato a aniadir: \n");
-                scanf("%c", zp.color);
+                printf("Color del zapato a aniadir: ");
+                scanf("%s", &zp.color);
 
-                printf("Talla del zapato aniadir: \n");
-                scanf("%f", zp.talla);
+                printf("Talla del zapato aniadir: ");
+                scanf("%f", &zp.talla);
 
-                printf("Precio del zapato aniadir: \n");
-                scanf("%f", zp.precio);
+                printf("Precio del zapato aniadir: ");
+                scanf("%f", &zp.precio);
 
                 Zapateria_add_zapato(&zapateria, &zp);
                 Zapateria_close(&zapateria);
-                return 0;
                 break;
 
             case 2: ; //se va a elimiar solo pasandole el id
@@ -318,18 +328,32 @@ int main()
                 
                 Zapateria_init(&zapateria, "zapateria.db");
 
-                printf("ID del zapato a eliminar: \n");
-                scanf("%d", zp.id);
-               
-                //Zapateria_eliminar_zapato_Elm(&zapateriaElm, zp.id); // Elimina el zapato con id 1
-                //Zapateria_close_Elm(&zapateriaElm);
-                return 0;
+                char *zErrMsg = 0;
+                int rc;
+                rc = sqlite3_exec(zapateria.db, "SELECT * FROM zapatos", imprimirZapatos, 0, &zErrMsg);
+                
+                if( rc != SQLITE_OK ) {
+                    fprintf(stderr, "Error al ejecutar la consulta: %s\n", zErrMsg);
+                    sqlite3_free(zErrMsg);
+                } 
+
+
+                printf("ID del zapato a eliminar: ");
+                scanf("%d", &zp.id);
+                printf("Si el codigo introducido estaba en la BD ha sido eliminado\n");
+
+                Zapateria_eliminar_zapato_Elm(&zapateria, zp.id); // Elimina el zapato con id 1
+                Zapateria_close_Elm(&zapateria);
+
+                break;
             }
+            
+             
         }
 
         else
             {
-                printf("Nombre de usuario, contrasenia o codigo de administrador incorrectos.\n");
+            printf("Nombre de usuario, contrasenia o codigo de administrador incorrectos.\n");
             }
              return 0;
 
