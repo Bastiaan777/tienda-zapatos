@@ -11,18 +11,18 @@ typedef struct
     float talla;
     float precio;
     
-} Zapato;
+} ZapatoElm;
 
 typedef struct
 {
     sqlite3 *db;
-} Zapateria;
+} ZapateriaElm;
 
-int Zapateria_init(Zapateria *zapateria, const char *db_filename);
+int Zapateria_init_Elm(ZapateriaElm *zapateria, const char *db_filename);
 
-int Zapateria_eliminar_zapato(Zapateria *zapateria, int id);
+int Zapateria_eliminar_zapato_Elm(ZapateriaElm *zapateria, int id);
 
-void Zapateria_close(Zapateria *zapateria);
+void Zapateria_close_Elm(ZapateriaElm *zapateria);
 
 
 

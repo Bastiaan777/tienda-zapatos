@@ -1,4 +1,4 @@
-#include <sqlite3.h>
+#include "sqlite3.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,7 +12,7 @@
 
 
 // Función para inicializar la base de datos
-int Zapateria_init(Zapateria *zapateria, const char *db_filename)
+int Zapateria_init_Elm(ZapateriaElm *zapateria, const char *db_filename)
 {
     int rc = sqlite3_open(db_filename, &zapateria->db);
     if (rc != SQLITE_OK)
@@ -24,7 +24,7 @@ int Zapateria_init(Zapateria *zapateria, const char *db_filename)
 }
 
 // Función para eliminar un zapato de la base de datos
-int Zapateria_eliminar_zapato(Zapateria *zapateria, int id)
+int Zapateria_eliminar_zapato_Elm(ZapateriaElm *zapateria, int id)
 {
     sqlite3_stmt *stmt;
     int rc = sqlite3_prepare_v2(zapateria->db, "DELETE FROM zapatos WHERE id = ?;", -1, &stmt, NULL);
@@ -45,7 +45,7 @@ int Zapateria_eliminar_zapato(Zapateria *zapateria, int id)
 }
 
 // Función para cerrar la base de datos
-void Zapateria_close(Zapateria *zapateria)
+void Zapateria_close_Elm(ZapateriaElm *zapateria)
 {
     sqlite3_close(zapateria->db);
 }
