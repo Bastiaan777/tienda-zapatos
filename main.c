@@ -34,6 +34,8 @@ int main()
     int i, encontrado = 0;
     char usuarios[MAX_USUARIOS][2][MAX_LEN];
     int num_usuarios = 0;
+    char username[50];
+    char contrasena1[50];
 
     int opcion;
 
@@ -123,8 +125,14 @@ int main()
         printf("Introduce tu nombre de usuario: ");
         scanf("%s", nombre);
 
+        strcpy(username,nombre);
+
+
+
         printf("Introduce tu contrasenia: ");
         scanf("%s", contrasena);
+
+        strcpy(contrasena1,contrasena);
 
         // comprobar si el nombre de usuario y contraseña introducidos coinciden con alguno en el archivo
         for (i = 0; i < num_usuarios; i++)
@@ -143,7 +151,7 @@ int main()
             //aqui empieza el main de usuario principal
             sqlite3 *db;
              int rc;
-             rc = sqlite3_open("tiendaBD.db", &db);
+             rc = sqlite3_open("zapateria.db", &db);
 
             if (rc)
             {
@@ -154,7 +162,7 @@ int main()
             int opcion;
             int talla;
             char tipo[50], nombre[50], color[20];
-            char username[50] = "nombre_de_usuario";
+            
 
             do
             {
@@ -205,7 +213,9 @@ int main()
 
                 case 3:
                     printf("Estos son los datos de tu perfil\n");
-                    mostrar_usuario(username); // llama al metodo
+                    printf("Tu usuario es: %s\n",username);
+                    printf("Tu contraseña es: %s\n",contrasena1);
+                    printf("\n");
                     break;
 
                 case 4:
@@ -340,6 +350,7 @@ int main()
 
                 printf("ID del zapato a eliminar: ");
                 scanf("%d", &zp.id);
+                
                 printf("Si el codigo introducido estaba en la BD ha sido eliminado\n");
 
                 Zapateria_eliminar_zapato_Elm(&zapateria, zp.id); // Elimina el zapato con id 1

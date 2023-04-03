@@ -1,3 +1,3 @@
-unaitxi;pitilin;;hola;adios;;;vato;vato;
-basti;holi;
-pol;sed
+unaitxi;pitilin;;hola;adios;;;vato;vato;;basti;holpol;sed;;pol;sed;
+bast;an;
+george;george

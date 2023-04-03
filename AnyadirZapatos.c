@@ -3,11 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "AnyadirZapatos.h"
- #include "sqlite3.h"
-
-
-
-
+#include "sqlite3.h"
 
 // Función para inicializar la base de datos y crear la tabla de zapatos
 int Zapateria_init(Zapateria *zapateria, const char *db_filename)
@@ -61,4 +57,3 @@ void Zapateria_close(Zapateria *zapateria)
 {
     sqlite3_close(zapateria->db);
 }
-
