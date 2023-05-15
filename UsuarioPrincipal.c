@@ -156,7 +156,7 @@ void obtener_precio(sqlite3 *db, char *nombre, char *color, int talla, double *p
 }
 
 void mostrar_usuario(const char *username)
-{ // nose si esta bien del todo
+{ 
     FILE *file = fopen("users.txt", "r");
     if (file == NULL)
     {
