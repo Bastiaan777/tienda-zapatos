@@ -3,13 +3,6 @@
 #include <string.h>
 #include "crearUsuario.h"
 
-#define MAX_USERS 100 // máximo número de usuarios que podemos tener
-
-
-User users[MAX_USERS]; // arreglo para almacenar todos los usuarios
-
-int num_users = 0; // contador de usuarios actuales
-
 void read_users_file() {
     FILE *file = fopen("users.txt", "r");
     if (file == NULL) {

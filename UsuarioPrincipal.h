@@ -1,7 +1,10 @@
+#pragma once 
+
 #include <stdio.h>
-#include "sqlite3.h"
 #include <string.h>
 #include <time.h>
+#include "sqlite3.h"
+
 
 typedef struct
 {
@@ -10,13 +13,17 @@ typedef struct
     char color[20];
     int talla;
     double precio;
+    
 } Pedido;
 
-static int mostrar_tipos(void *data, int argc, char **argv, char **azColName);
+Pedido cesta[100];
+int cantidad_pedidos = 0;
 
-static int mostrar_zapatos_tipo(void *data, int argc, char **argv, char **azColName);
+int mostrar_tipos(void *data, int argc, char **argv, char **azColName);
 
-static int mostrar_opciones_zapato(void *data, int argc, char **argv, char **azColName);
+int mostrar_zapatos_tipo(void *data, int argc, char **argv, char **azColName);
+
+int mostrar_opciones_zapato(void *data, int argc, char **argv, char **azColName);
 
 void ver_tipos(sqlite3 *db);
 
@@ -33,4 +40,5 @@ void obtener_precio(sqlite3 *db, char *nombre, char *color, int talla, double *p
 void mostrar_usuario(const char *username);
 
 void comprar_cesta(sqlite3 *db, char *username);
+
 

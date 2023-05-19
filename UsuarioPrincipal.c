@@ -1,25 +1,23 @@
 #include <stdio.h>
-#include "sqlite3.h"
 #include <string.h>
 #include "UsuarioPrincipal.h"
 #include <time.h>
 
-Pedido cesta[100];
-int cantidad_pedidos = 0;
 
-static int mostrar_tipos(void *data, int argc, char **argv, char **azColName)
+
+int mostrar_tipos(void *data, int argc, char **argv, char **azColName)
 {
     printf("%s\n", argv[0]);
     return 0;
 }
 
-static int mostrar_zapatos_tipo(void *data, int argc, char **argv, char **azColName)
+int mostrar_zapatos_tipo(void *data, int argc, char **argv, char **azColName)
 {
     printf("%s - %s\n", argv[0], argv[1]);
     return 0;
 }
 
-static int mostrar_opciones_zapato(void *data, int argc, char **argv, char **azColName)
+int mostrar_opciones_zapato(void *data, int argc, char **argv, char **azColName)
 {
     printf("Color: %s\n", argv[0]);
     printf("Talla: %s\n", argv[1]);
@@ -33,7 +31,7 @@ void ver_tipos(sqlite3 *db)
     char *zErrMsg = 0;
     int rc;
     const char *data = "Callback function called";
-    char *sql = "SELECT DISTINCT tipo FROM zapatos;";
+    const char *sql = "SELECT DISTINCT tipo FROM zapatos;";
 
     rc = sqlite3_exec(db, sql, mostrar_tipos, (void *)data, &zErrMsg);
     if (rc != SQLITE_OK)

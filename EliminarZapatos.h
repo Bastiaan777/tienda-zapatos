@@ -1,6 +1,7 @@
-#include "sqlite3.h"
+
 #ifndef EliminarZapatos_h
 #define ElimiarZaparos_h
+#include "sqlite3.h"
 #include "AnyadirZapatos.h"
 
 

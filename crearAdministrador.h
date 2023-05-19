@@ -1,5 +1,4 @@
-#ifndef CREARADMINISTRADOR_H_INCLUDED
-#define CREARADMINISTRADOR_H_INCLUDED
+#pragma once 
 
 #define MAX_ADMIN 100
 
@@ -15,4 +14,4 @@ void write_admins_file();
 
 void create_admin();
 
-#endif 
+#

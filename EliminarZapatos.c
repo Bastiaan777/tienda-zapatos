@@ -1,10 +1,7 @@
-#include "sqlite3.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "EliminarZapatos.h"
-#include "sqlite3.h"
-#include "AnyadirZapatos.h"
 
 // Definición de la estructura de datos para representar los zapatos
 

@@ -1,9 +1,13 @@
-#include "Metodosc++.h"
 #include <iostream>
-#include <string>
-#include <sqlite3.h>
+#include <iomanip>
+#include <fstream>
+#include "Metodosc++.h"
+#include "UsuarioPrincipal.h"
+#include "crearUsuario.h"
 
-void metodos++ :: ver_zapatos_tipo(sqlite3 *db, const std::string& tipo)
+
+
+void metodospp :: ver_zapatos_tipo(sqlite3 *db, const std::string& tipo)
 {
     std::cout << "\nZapatos del tipo " << tipo << ":\n";
     char *zErrMsg = 0;
@@ -20,7 +24,7 @@ void metodos++ :: ver_zapatos_tipo(sqlite3 *db, const std::string& tipo)
     std::cout << "\n";
 }
 
-void metodos++ :: ver_opciones_zapato(sqlite3 *db, const std::string& nombre)
+void metodospp :: ver_opciones_zapato(sqlite3 *db, const std::string& nombre)
 {
     char *zErrMsg = 0;
     int rc;
@@ -36,7 +40,7 @@ void metodos++ :: ver_opciones_zapato(sqlite3 *db, const std::string& nombre)
     std::cout << "\n";
 }
 
-void metodos++ :: agregar_a_cesta(sqlite3 *db, const std::string& nombre, const std::string& color, int talla, double precio)
+void metodospp :: agregar_a_cesta(sqlite3 *db, const std::string& nombre, const std::string& color, int talla, double precio)
 {
     char *zErrMsg = 0;
     int rc;
@@ -58,8 +62,8 @@ void metodos++ :: agregar_a_cesta(sqlite3 *db, const std::string& nombre, const 
     if (rc == SQLITE_ROW)
     {
         double precio = sqlite3_column_double(stmt, 0);
-        cesta[cantidad_pedidos].nombre = nombre;
-        cesta[cantidad_pedidos].color = color;
+        strncpy(cesta[cantidad_pedidos].nombre , nombre.c_str(), sizeof(nombre));
+        strncpy (cesta[cantidad_pedidos].color , color.c_str(), sizeof(color));
         cesta[cantidad_pedidos].talla = talla;
         cesta[cantidad_pedidos].precio = precio;
         cantidad_pedidos++;
@@ -74,7 +78,7 @@ void metodos++ :: agregar_a_cesta(sqlite3 *db, const std::string& nombre, const 
 }
 
 
-void metodos++ :: ver_cesta()
+void metodospp :: ver_cesta()
 {
     for (int i = 0; i < cantidad_pedidos; i++)
     {
@@ -86,7 +90,7 @@ void metodos++ :: ver_cesta()
     }
 }
 
-void metodos++ :: obtener_precio(sqlite3 *db, const std::string& nombre, const std::string& color, int talla, double *precio)
+void metodospp :: obtener_precio(sqlite3 *db, const std::string& nombre, const std::string& color, int talla, double *precio)
 {
     sqlite3_stmt *stmt;
     std::string sql = "SELECT precio FROM zapatos WHERE nombre = ? AND color = ? AND talla = ?;";
@@ -115,7 +119,7 @@ void metodos++ :: obtener_precio(sqlite3 *db, const std::string& nombre, const s
     sqlite3_finalize(stmt);
 }
 
-void metodos++ :: mostrar_usuario(const std::string& username)
+void metodospp :: mostrar_usuario(const std::string& username)
 {
     std::ifstream file("users.txt");
     if (!file)
@@ -142,7 +146,7 @@ void metodos++ :: mostrar_usuario(const std::string& username)
     file.close();
 }
 
-void metodos++ :: comprar_cesta(sqlite3 *db, const std::string& username)
+void metodospp :: comprar_cesta(sqlite3 *db, const std::string& username)
 {
     char *zErrMsg = 0;
     int rc;
@@ -166,7 +170,7 @@ void metodos++ :: comprar_cesta(sqlite3 *db, const std::string& username)
     std::cout << "\nCompra realizada con éxito.\n\n";
 }
 
-void metodos++ :: create_user() {
+void metodospp :: create_user() {
     std::string username;
     std::string password;
     std::cout << "Ingresa el nombre de usuario: ";
@@ -177,8 +181,8 @@ void metodos++ :: create_user() {
         std::cout << "No se pueden crear más usuarios\n";
         return;
     }
-    users[num_users].username = username;
-    users[num_users].password = password;
+    strncpy(users[num_users].username , username.c_str(), sizeof(username));
+    strncpy(users[num_users].password, password.c_str(), sizeof(password));
     num_users++;
     write_users_file();
     std::cout << "Usuario creado exitosamente\n";

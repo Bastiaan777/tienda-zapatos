@@ -1,13 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include "sqlite3.h"
 #include "crearUsuario.h"
 #include "crearAdministrador.h"
 #include "AnyadirZapatos.h"
-#include <stdlib.h>
-#include <string.h>
-#include "sqlite3.h"
 #include "EliminarZapatos.h"
 #include "UsuarioPrincipal.h"
-#include <time.h>
+#include "Metodosc++.h"
 
 
 #define MAX_USUARIOS 100
@@ -182,7 +183,7 @@ int main()
                     printf("Elija un tipo de zapato: ");
                     scanf(" %[^\n]", tipo);
 
-                    ver_zapatos_tipo(db, tipo);
+                    metodospp::ver_zapatos_tipo(db, tipo);
                     printf("Elija un zapato: ");
                     scanf(" %[^\n]", nombre);
 
