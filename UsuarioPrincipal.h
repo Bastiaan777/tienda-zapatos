@@ -16,8 +16,8 @@ typedef struct
     
 } Pedido;
 
-Pedido cesta[100];
-int cantidad_pedidos = 0;
+static Pedido cesta[100];
+static int cantidad_pedidos = 0;
 
 int mostrar_tipos(void *data, int argc, char **argv, char **azColName);
 

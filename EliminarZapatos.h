@@ -5,11 +5,11 @@
 #include "AnyadirZapatos.h"
 
 
-int Zapateria_init_Elm(Zapateria *zapateria, const char *db_filename);
+int Zapateria_init(Zapateria *zapateria, const char *db_filename);
 
-int Zapateria_eliminar_zapato_Elm(Zapateria *zapateria, int id);
+int Zapateria_eliminar_zapato(Zapateria *zapateria, int id);
 
-void Zapateria_close_Elm(Zapateria *zapateria);
+void Zapateria_close(Zapateria *zapateria);
 
  #endif
 

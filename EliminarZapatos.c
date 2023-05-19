@@ -1,16 +1,25 @@
+#include "sqlite3.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "EliminarZapatos.h"
 
 // Definición de la estructura de datos para representar los zapatos
-
+typedef struct
+{
+    int id;
+    char marca[50];
+    char modelo[50];
+    float precio;
+} Zapato;
 
 // Definición de la clase para eliminar zapatos de la base de datos
-
+typedef struct
+{
+    sqlite3 *db;
+} Zapateria;
 
 // Función para inicializar la base de datos
-int Zapateria_init_Elm(Zapateria *zapateria, const char *db_filename)
+int Zapateria_init(Zapateria *zapateria, const char *db_filename)
 {
     int rc = sqlite3_open(db_filename, &zapateria->db);
     if (rc != SQLITE_OK)
@@ -21,9 +30,8 @@ int Zapateria_init_Elm(Zapateria *zapateria, const char *db_filename)
     return 0;
 }
 
-
 // Función para eliminar un zapato de la base de datos
-int Zapateria_eliminar_zapato_Elm(Zapateria *zapateria, int id)
+int Zapateria_eliminar_zapato(Zapateria *zapateria, int id)
 {
     sqlite3_stmt *stmt;
     int rc = sqlite3_prepare_v2(zapateria->db, "DELETE FROM zapatos WHERE id = ?;", -1, &stmt, NULL);
@@ -40,14 +48,11 @@ int Zapateria_eliminar_zapato_Elm(Zapateria *zapateria, int id)
         return 1;
     }
     sqlite3_finalize(stmt);
-
-    
     return 0;
 }
 
 // Función para cerrar la base de datos
-void Zapateria_close_Elm(Zapateria *zapateria)
+void Zapateria_close(Zapateria *zapateria)
 {
     sqlite3_close(zapateria->db);
 }
-

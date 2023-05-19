@@ -7,9 +7,9 @@ typedef struct {
     char password[50];
 } User;
 
-User users[MAX_USERS]; // arreglo para almacenar todos los usuarios
+static User users[MAX_USERS]; // arreglo para almacenar todos los usuarios
 
-int num_users = 0; // contador de usuarios actuales
+static int num_users = 0; // contador de usuarios actuales
 
 
 

@@ -4,7 +4,6 @@
 #include <time.h>
 
 
-
 int mostrar_tipos(void *data, int argc, char **argv, char **azColName)
 {
     printf("%s\n", argv[0]);

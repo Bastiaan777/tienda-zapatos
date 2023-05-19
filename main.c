@@ -354,8 +354,8 @@ int main()
                 
                 printf("Si el codigo introducido estaba en la BD ha sido eliminado\n");
 
-                Zapateria_eliminar_zapato_Elm(&zapateria, zp.id); // Elimina el zapato con id 1
-                Zapateria_close_Elm(&zapateria);
+                Zapateria_eliminar_zapato(&zapateria, zp.id); // Elimina el zapato con id 1
+                Zapateria_close(&zapateria);
 
                 break;
             }

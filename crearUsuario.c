@@ -3,6 +3,7 @@
 #include <string.h>
 #include "crearUsuario.h"
 
+
 void read_users_file() {
     FILE *file = fopen("users.txt", "r");
     if (file == NULL) {
