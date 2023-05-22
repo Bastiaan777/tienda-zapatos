@@ -67,7 +67,7 @@ int main()
             switch (choice)
             {
             case 1:
-                create_user();
+                metodospp::create_user();
                 break;
             case 2:
                 printf("Adiós!\n");
@@ -187,7 +187,7 @@ int main()
                     printf("Elija un zapato: ");
                     scanf(" %[^\n]", nombre);
 
-                    ver_opciones_zapato(db, nombre);
+                    metodospp::ver_opciones_zapato(db, nombre);
                     printf("Elija un color: ");
                     scanf(" %[^\n]", color);
 
@@ -195,20 +195,20 @@ int main()
                     scanf("%d", &talla);
 
                     double precio;
-                    obtener_precio(db, nombre, color, talla, &precio);
+                    metodospp::obtener_precio(db, nombre, color, talla, &precio);
                     printf("Precio del zapato: $%.2f\n", precio);
 
                     printf("¿Desea agregar este zapato a la cesta? (1.Si, 2.No): ");
                     scanf("%d", &opcion);
                     if (opcion == 1)
                     {
-                        agregar_a_cesta(db, nombre, color, talla, precio); // llama al metodo
+                        metodospp::agregar_a_cesta(db, nombre, color, talla, precio); // llama al metodo
                     }
                     break;
 
                 case 2:
                     printf("\nCesta:\n");
-                    ver_cesta();
+                    metodospp::ver_cesta();
                     printf("\n");
                     break;
 
@@ -221,7 +221,7 @@ int main()
 
                 case 4:
                     printf("\nComprar cesta:\n");
-                    comprar_cesta(db, username);
+                    metodospp::comprar_cesta(db, username);
                     printf("\n");
                     break;
                 

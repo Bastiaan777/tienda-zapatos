@@ -1,5 +1,4 @@
-#ifndef AnyadirZapatos_h
-#define AnyadirZapatos_h
+#pragma once 
 #include "sqlite3.h"
 
 typedef struct
@@ -27,4 +26,3 @@ int Zapateria_add_zapato(Zapateria *zapateria, Zapato *zapato);
 // Función para cerrar la base de datos
 void Zapateria_close(Zapateria *zapateria);
 
-#endif

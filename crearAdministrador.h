@@ -14,4 +14,3 @@ void write_admins_file();
 
 void create_admin();
 
-#
